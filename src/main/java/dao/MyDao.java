@@ -66,11 +66,12 @@ public class MyDao {
 		}
 	}
 	
-	public void delete(Invitation inv) {		
+	public void deleteById(int id) {		
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		try {
 			transaction.begin();
+			Invitation inv = em.find(Invitation.class,id);
 			em.remove(inv);
 			transaction.commit();
 			
