@@ -1,34 +1,40 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
-import model.*;
+import model.Invitation;
 
 public class MyDao {
-	
+
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("invites");
-	
-	public void create(Invitation inv) {		
+
+	public int create(Invitation inv) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
+		int resultat = -1;
 		try {
 			transaction.begin();
 			em.persist(inv);
 			transaction.commit();
-			
-		}catch(Exception e) {
-			if(transaction != null)
+			resultat = 1;
+		} catch (Exception e) {
+			if (transaction != null)
 				transaction.rollback();
 			e.printStackTrace();
-		}finally {
+		} finally {
 			em.close();
 		}
+		return resultat;
 	}
-	
-	public Invitation findById(int id) {	
+
+	public Invitation findById(int id) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		Invitation inv = null;
@@ -36,52 +42,76 @@ public class MyDao {
 			transaction.begin();
 			inv = em.find(Invitation.class, id);
 			transaction.commit();
-		}catch(Exception e) {
-			if(transaction != null)
+		} catch (Exception e) {
+			if (transaction != null)
 				transaction.rollback();
 			e.printStackTrace();
-		}finally {
+		} finally {
 			em.close();
 		}
 		return inv;
 	}
-	
-	public void update(Invitation inv) {	
+
+	public int update(Invitation inv) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
+		int resultat = -1;
 		try {
 			transaction.begin();
-			Invitation inv1 = em.find(Invitation.class,inv.getId());
+			Invitation inv1 = em.find(Invitation.class, inv.getId());
 			inv1.setDate(inv.getDate());
 			inv1.setNom(inv.getNom());
 			inv1.setLieu(inv.getLieu());
 			inv1.setPrenom(inv.getPrenom());
-			transaction.commit();		
-		}catch(Exception e) {
-			if(transaction != null)
+			transaction.commit();
+			resultat = 1;
+		} catch (Exception e) {
+			if (transaction != null)
 				transaction.rollback();
 			e.printStackTrace();
-		}finally {
+		} finally {
 			em.close();
 		}
+		return resultat;
 	}
-	
-	public void deleteById(int id) {		
+
+	public int deleteById(int id) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
+		int resultat = -1;
 		try {
 			transaction.begin();
-			Invitation inv = em.find(Invitation.class,id);
+			Invitation inv = em.find(Invitation.class, id);
 			em.remove(inv);
 			transaction.commit();
-			
-		}catch(Exception e) {
-			if(transaction != null)
+			resultat = 1;
+		} catch (Exception e) {
+			if (transaction != null)
 				transaction.rollback();
 			e.printStackTrace();
-		}finally {
+		} finally {
 			em.close();
 		}
+		return resultat;
+	}
+
+	public List<Invitation> findAll() {
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		List<Invitation> liste = new ArrayList<Invitation>();
+		try {
+			transaction.begin();
+			TypedQuery<Invitation> req = em.createNamedQuery("Invitation.findAll", Invitation.class);
+			liste = req.getResultList();
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null)
+				transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return liste;
 	}
 
 }
