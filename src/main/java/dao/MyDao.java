@@ -51,7 +51,7 @@ public class MyDao {
 		EntityTransaction transaction = em.getTransaction();
 		try {
 			transaction.begin();
-			Invitation inv1 = findById(inv.getId());
+			Invitation inv1 = em.find(Invitation.class,inv.getId());
 			inv1.setDate(inv.getDate());
 			inv1.setNom(inv.getNom());
 			inv1.setLieu(inv.getLieu());
