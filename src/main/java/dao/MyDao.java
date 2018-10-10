@@ -81,9 +81,9 @@ public class MyDao {
 			inv = em.find(LieuSpectacle.class, id);
 			transaction.commit();
 		} catch (Exception e) {
-//			if (transaction != null)
-//				transaction.rollback();
-//			e.printStackTrace();
+			if (transaction != null)
+				transaction.rollback();
+			e.printStackTrace();
 		} finally {
 			em.close();
 		}
@@ -125,9 +125,9 @@ public class MyDao {
 			transaction.commit();
 			resultat = 1;
 		} catch (Exception e) {
-			if (transaction != null)
-				transaction.rollback();
-			e.printStackTrace();
+//			if (transaction != null)
+//				transaction.rollback();
+//			e.printStackTrace();
 		} finally {
 			em.close();
 		}
