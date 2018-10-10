@@ -18,16 +18,19 @@ public class Application {
 		dao.create(inv3);
 		
 		LieuSpectacle lieuspec1 = new LieuSpectacle("Boom", "Paris");
-		LieuSpectacle lieuspec2 = new LieuSpectacle("Anniversaire", "Lyon");
-		
 		inv1.setLieuspectacle(lieuspec1);
 		dao.update(inv1);
+		
+		LieuSpectacle lieuspec2 = new LieuSpectacle("Anniversaire", "Lyon");
 		inv2.setLieuspectacle(lieuspec2);
 		dao.update(inv2);
-		inv3.setLieuspectacle(lieuspec1);
+		
+		inv3.setLieuspectacle(dao.findLieuSpecById(1L));
 		dao.update(inv3);
 		
+		System.out.println(dao.findAll());
 		
+		System.out.println(dao.findLieuSpecAll());
 		
 //		System.out.println("Ici entier retourné par dao.create(Invitation) : " + dao.create(inv1));
 //		System.out.println("Ici entier retourné par dao.create(Invitation) : " + dao.create(inv2));
@@ -45,6 +48,7 @@ public class Application {
 //
 //		System.out.println("Ici liste retour de dao.findAll() Apres suppression : " + dao.findAll());
 
+		dao.getEmf().close();
 	}
 
 }

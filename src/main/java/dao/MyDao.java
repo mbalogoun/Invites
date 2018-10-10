@@ -14,7 +14,7 @@ import model.LieuSpectacle;
 
 public class MyDao {
 
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("invites");
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("invites");
 
 	public int create(Invitation inv) {
 		EntityManager em = emf.createEntityManager();
@@ -104,9 +104,9 @@ public class MyDao {
 			transaction.commit();
 			resultat = 1;
 		} catch (Exception e) {
-//			if (transaction != null)
-//				transaction.rollback();
-//			e.printStackTrace();
+			if (transaction != null)
+				transaction.rollback();
+			e.printStackTrace();
 		} finally {
 			em.close();
 		}
@@ -125,9 +125,9 @@ public class MyDao {
 			transaction.commit();
 			resultat = 1;
 		} catch (Exception e) {
-//			if (transaction != null)
-//				transaction.rollback();
-//			e.printStackTrace();
+			if (transaction != null)
+				transaction.rollback();
+			e.printStackTrace();
 		} finally {
 			em.close();
 		}
@@ -210,6 +210,10 @@ public class MyDao {
 			em.close();
 		}
 		return liste;
+	}
+
+	public EntityManagerFactory getEmf() {
+		return emf;
 	}
 
 }
