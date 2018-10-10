@@ -14,7 +14,11 @@ import model.LieuSpectacle;
 
 public class MyDao {
 
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("invites");
+	private EntityManagerFactory emf;
+
+	public MyDao() {
+		emf = Persistence.createEntityManagerFactory("invites");
+	}
 
 	public int create(Invitation inv) {
 		EntityManager em = emf.createEntityManager();
@@ -30,7 +34,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return resultat;
 	}
@@ -49,7 +54,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return resultat;
 	}
@@ -67,7 +73,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return inv;
 	}
@@ -85,7 +92,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return inv;
 	}
@@ -108,7 +116,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return resultat;
 	}
@@ -129,7 +138,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return resultat;
 	}
@@ -149,7 +159,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return resultat;
 	}
@@ -169,7 +180,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return resultat;
 	}
@@ -188,7 +200,8 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return liste;
 	}
@@ -207,13 +220,15 @@ public class MyDao {
 				transaction.rollback();
 			e.printStackTrace();
 		} finally {
-			em.close();
+			if(em != null)
+				em.close();
 		}
 		return liste;
 	}
 
-	public EntityManagerFactory getEmf() {
-		return emf;
+	public void closeEmf() {
+		if(this.emf != null)
+			this.emf.close();
 	}
 
 }

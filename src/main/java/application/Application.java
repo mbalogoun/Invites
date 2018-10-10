@@ -48,7 +48,7 @@ public class Application {
 //
 //		System.out.println("Ici liste retour de dao.findAll() Apres suppression : " + dao.findAll());
 
-		dao.getEmf().close();
+		dao.closeEmf();
 	}
 
 }
