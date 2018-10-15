@@ -22,6 +22,11 @@ public class Invitation {
 	@JoinColumn(name = "spectacle_id")
 	private LieuSpectacle lieuspectacle;
 
+	public void addLieuSpectacle(LieuSpectacle lieu) {
+		this.setLieuspectacle(lieu);
+		lieu.getInvitations().add(this);
+	}
+	
 	public Invitation() {
 		super();
 	}

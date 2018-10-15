@@ -21,7 +21,7 @@ public class LieuSpectacle {
 	private String name;
 	private String adresse;
 	@OneToMany(mappedBy = "lieuspectacle", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
-	Set<Invitation> invitations = new HashSet<>();
+	Set<Invitation> invitations = new HashSet<Invitation>();
 
 	public LieuSpectacle() {
 		super();
@@ -38,10 +38,14 @@ public class LieuSpectacle {
 		inv.setLieuspectacle(this);
 	}
 
+	public void addInvitation(Invitation inv) {
+		this.invitations.add(inv);
+		inv.setLieuspectacle(this);	
+	}
+
 	@Override
 	public String toString() {
-		return "LieuSpectacle [id=" + id + ", name=" + name + ", adresse=" + adresse + ", invitations=" + invitations
-				+ "]";
+		return "LieuSpectacle [id=" + id + ", name=" + name + ", adresse=" + adresse + "]";
 	}
 
 	public Long getId() {

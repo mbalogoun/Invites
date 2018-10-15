@@ -1,36 +1,46 @@
 package application;
 
-import dao.MyDao;
+import dao.*;
 import model.Invitation;
 import model.LieuSpectacle;
 
 public class Application {
 
 	public static void main(String[] args) {
-		MyDao dao = new MyDao();
+		InvitationDao daoInv = new InvitationDao();
+		LieuSpectacleDao daoLieu = new LieuSpectacleDao();
 		
-		Invitation inv1 = new Invitation("Balogoun2", "Mohamed", "13/11/2018");
-		Invitation inv2 = new Invitation("Marlon2", "Mande", "03/12/2019");
-		Invitation inv3 = new Invitation("Drouot2", "Fabien", "25/08/2020");
+		Invitation inv1 = new Invitation("Mohamed", "Mohamed", "13/11/2018");
+		Invitation inv2 = new Invitation("Ahmed", "Mande", "03/12/2019");
+		Invitation inv3 = new Invitation("Amina", "Fabien", "25/08/2020");
 		
-		dao.create(inv1);
-		dao.create(inv2);
-		dao.create(inv3);
+		daoInv.create(inv1);
+		daoInv.create(inv2);
+		daoInv.create(inv3);
 		
-		LieuSpectacle lieuspec1 = new LieuSpectacle("Boom", "Paris");
+		LieuSpectacle lieuspec1 = new LieuSpectacle("Boom2", "Paris");
+//		daoInv.update(inv1, lieuspec1);
+//		inv1.addLieuSpectacle(lieuspec1);
+//		lieuspec1.addInvitation(inv1);
 		inv1.setLieuspectacle(lieuspec1);
-		dao.update(inv1);
+		daoInv.update(inv1);
 		
-		LieuSpectacle lieuspec2 = new LieuSpectacle("Anniversaire", "Lyon");
+		LieuSpectacle lieuspec2 = new LieuSpectacle("Anniversaire2", "Lyon");
+//		daoInv.update(inv2, lieuspec2);
+//		inv2.addLieuSpectacle(lieuspec2);
+//		lieuspec2.addInvitation(inv2);
 		inv2.setLieuspectacle(lieuspec2);
-		dao.update(inv2);
+		daoInv.update(inv2);
 		
-		inv3.setLieuspectacle(dao.findLieuSpecById(1L));
-		dao.update(inv3);
+		daoInv.update(inv3, daoLieu.findById(34L));
+//		inv3.addLieuSpectacle(lieuspec1);
+//		daoLieu.findById(5L).addInvitation(inv3);
+//		inv3.setLieuspectacle(daoLieu.findById(3L));
+//		daoInv.update(inv3);
 		
-		System.out.println(dao.findAll());
+		System.out.println(daoInv.findAll());
 		
-		System.out.println(dao.findLieuSpecAll());
+		System.out.println(daoLieu.findAll());
 		
 //		System.out.println("Ici entier retourné par dao.create(Invitation) : " + dao.create(inv1));
 //		System.out.println("Ici entier retourné par dao.create(Invitation) : " + dao.create(inv2));
@@ -48,7 +58,7 @@ public class Application {
 //
 //		System.out.println("Ici liste retour de dao.findAll() Apres suppression : " + dao.findAll());
 
-		dao.closeEmf();
+//		Dao.emf.close();
 	}
 
 }
