@@ -32,7 +32,9 @@ public class Application {
 		inv2.setLieuspectacle(lieuspec2);
 		daoInv.update(inv2);
 		
-		daoInv.update(inv3, daoLieu.findById(34L));
+		inv3.setLieuspectacle(daoLieu.findById(1L));
+		daoInv.update(inv3);
+//		daoInv.update(inv3, daoLieu.findById(1L));
 //		inv3.addLieuSpectacle(lieuspec1);
 //		daoLieu.findById(5L).addInvitation(inv3);
 //		inv3.setLieuspectacle(daoLieu.findById(3L));
@@ -58,7 +60,8 @@ public class Application {
 //
 //		System.out.println("Ici liste retour de dao.findAll() Apres suppression : " + dao.findAll());
 
-//		Dao.emf.close();
+		if(Dao.emf != null)
+				Dao.emf.close();
 	}
 
 }
