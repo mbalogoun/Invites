@@ -32,7 +32,7 @@ public class Application {
 		inv2.setLieuspectacle(lieuspec2);
 		daoInv.update(inv2);
 		
-		daoInv.update(inv3, daoLieu.findById(34L));
+		daoInv.update(inv3, daoLieu.findById(17L));
 //		inv3.addLieuSpectacle(lieuspec1);
 //		daoLieu.findById(5L).addInvitation(inv3);
 //		inv3.setLieuspectacle(daoLieu.findById(3L));
