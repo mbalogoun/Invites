@@ -16,6 +16,14 @@ public class InvitationDao implements Dao<Invitation> {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction transaction = em.getTransaction();
 		int resultat = -1;
+		List<Invitation> liste = new ArrayList<Invitation>();
+		liste = findAll();
+		if(liste!=null && liste.size()>0) {
+			for (Invitation invitation : liste) {
+				if(inv.equals(invitation))
+					return 0;
+			}
+		}
 		try {
 			transaction.begin();
 			em.persist(inv);
@@ -61,8 +69,14 @@ public class InvitationDao implements Dao<Invitation> {
 			Invitation inv1 = em.find(Invitation.class, inv.getId());
 			inv1.setDate(inv.getDate());
 			inv1.setNom(inv.getNom());
-			inv1.setLieuspectacle(inv.getLieuspectacle());
 			inv1.setPrenom(inv.getPrenom());
+			if(inv.getLieuspectacle()!=null) {
+				if(inv.getLieuspectacle().getId()!=null) {
+					inv1.addLieuSpectacle(em.find(LieuSpectacle.class, inv.getLieuspectacle().getId()));
+				}else {
+					inv1.setLieuspectacle(inv.getLieuspectacle());
+				}
+			}
 			transaction.commit();
 			resultat = 1;
 		} catch (Exception e) {
